@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BorntoDev Course Q&A</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .question-box {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 50%;
+      }
+      .answer-box {
+        font-weight: bold;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 50%;
+      }
+      #ask-button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>BorntoDev Course Q&A</h1>
+      <p>Ask questions about the BorntoDev online courses.</p>
+      <textarea
+        id="question"
+        class="question-box"
+        rows="5"
+        placeholder="Enter your question here..."
+      ></textarea>
+      <button id="ask-button">Ask Question</button>
+      <textarea id="answer" class="answer-box" rows="5" readonly></textarea>
+    </div>
+
+    <script>
+      const askButton = document.getElementById("ask-button");
+      const questionInput = document.getElementById("question");
+      const answerOutput = document.getElementById("answer");
+
+      askButton.addEventListener("click", async () => {
+        const question = questionInput.value.trim();
+        if (!question) {
+          alert("Please enter a question!");
+          return;
+        }
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question }),
+          });
+
+          const data = await response.json();
+          answerOutput.value = data.answer;
+        } catch (error) {
+          console.error(error);
+          alert("An error occurred. Please try again later.");
+        }
+      });
+    </script>
+  </body>
+</html>

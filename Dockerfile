@@ -1,10 +1,10 @@
-FROM python:3.12-alpine
+FROM python:3.12.1
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 

@@ -21,7 +21,7 @@ CORS(app)
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-3.5-turbo")
+llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4o")
 
 output_parser = StrOutputParser()
 
